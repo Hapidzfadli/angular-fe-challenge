@@ -1,0 +1,42 @@
+.app-layout {
+  min-height: 100vh;
+  background-color: var(--bg-light);
+}
+
+.main-content {
+  margin-top: var(--header-height);
+  margin-left: var(--sidebar-width);
+  padding: 2rem;
+  min-height: calc(100vh - var(--header-height));
+  transition: margin-left var(--transition-speed) ease;
+  background-color: var(--bg-light);
+
+  @media (max-width: 991px) {
+    margin-left: 0;
+    padding: 1.5rem 1rem;
+  }
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 998;
+  animation: fadeIn 0.3s ease;
+
+  @media (max-width: 991px) {
+    &.active {
+      display: block;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

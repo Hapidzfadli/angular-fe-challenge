@@ -1,0 +1,29 @@
+<div class="searchable-dropdown" [class.disabled]="disabled" [class.open]="isOpen">
+  <div class="dropdown-toggle" (click)="toggleDropdown()">
+    <span class="selected-value" [class.placeholder]="!selectedOption">
+      {{ selectedOption?.name || placeholder }}
+    </span>
+    <span class="dropdown-arrow">&#9662;</span>
+  </div>
+
+  <div class="dropdown-menu" *ngIf="isOpen">
+    <div class="search-box">
+      <input type="text"
+             class="form-control form-control-sm"
+             placeholder="Search..."
+             [(ngModel)]="searchTerm"
+             (click)="$event.stopPropagation()">
+    </div>
+    <ul class="options-list">
+      <li *ngFor="let option of filteredOptions"
+          class="option-item"
+          [class.selected]="option.id === selectedOption?.id"
+          (click)="selectOption(option)">
+        {{ option.name }}
+      </li>
+      <li *ngIf="filteredOptions.length === 0" class="no-results">
+        No results found
+      </li>
+    </ul>
+  </div>
+</div>

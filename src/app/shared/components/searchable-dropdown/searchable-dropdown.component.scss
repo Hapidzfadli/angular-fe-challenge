@@ -1,0 +1,145 @@
+.searchable-dropdown {
+  position: relative;
+  width: 100%;
+
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.dropdown-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--bg-light);
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 46px;
+
+  &:hover {
+    border-color: var(--mandiri-blue);
+  }
+
+  .open & {
+    background: white;
+    border-color: var(--mandiri-blue);
+    box-shadow: 0 0 0 3px rgba(0, 60, 120, 0.1);
+  }
+}
+
+.selected-value {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+
+  &.placeholder {
+    color: var(--text-secondary);
+  }
+}
+
+.dropdown-arrow {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+  margin-left: 0.5rem;
+
+  .open & {
+    transform: rotate(180deg);
+    color: var(--mandiri-blue);
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  margin-top: 0.375rem;
+  background: white;
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-height: 280px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.search-box {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-light);
+
+  .form-control {
+    background: white;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+
+    &:focus {
+      border-color: var(--mandiri-blue);
+      box-shadow: 0 0 0 3px rgba(0, 60, 120, 0.1);
+      outline: none;
+    }
+
+    &::placeholder {
+      color: var(--text-secondary);
+    }
+  }
+}
+
+.options-list {
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.option-item {
+  padding: 0.625rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+
+  &:hover {
+    background-color: var(--mandiri-blue-lighter);
+    color: var(--mandiri-blue);
+  }
+
+  &.selected {
+    background: linear-gradient(135deg, var(--mandiri-blue) 0%, #0066cc 100%);
+    color: white;
+    font-weight: 600;
+  }
+}
+
+.no-results {
+  padding: 1.25rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+}

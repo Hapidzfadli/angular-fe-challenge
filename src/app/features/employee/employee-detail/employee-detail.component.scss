@@ -1,0 +1,216 @@
+.employee-detail {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+
+    &::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--mandiri-gold) 0%, var(--mandiri-blue) 100%);
+      border-radius: 2px;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+.detail-card {
+  background: var(--bg-white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+
+  .card-body {
+    padding: 2rem;
+  }
+}
+
+.employee-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.employee-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--mandiri-blue) 0%, #0066cc 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.25rem;
+  font-weight: 700;
+  box-shadow: 0 8px 25px rgba(0, 60, 120, 0.25);
+  flex-shrink: 0;
+}
+
+.employee-title {
+  flex: 1;
+
+  h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .employee-role {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.detail-item {
+  padding: 1rem 1.25rem;
+  background: var(--bg-light);
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--mandiri-blue-lighter);
+    transform: translateY(-2px);
+  }
+
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+
+  &.salary-item {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+
+    &:hover {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%);
+    }
+  }
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 0.375rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 500;
+
+  &.salary {
+    font-weight: 700;
+    color: var(--success-color);
+    font-size: 1.25rem;
+  }
+}
+
+.detail-actions {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+
+  &.btn-primary {
+    background: linear-gradient(135deg, var(--mandiri-blue) 0%, #0066cc 100%);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 60, 120, 0.3);
+
+    &:hover {
+      background: linear-gradient(135deg, #0066cc 0%, var(--mandiri-blue) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 60, 120, 0.4);
+    }
+  }
+
+  &.btn-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    border: none;
+    color: #1e293b;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+
+    &:hover {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--mandiri-blue) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-card .card-body {
+    padding: 1.5rem;
+  }
+
+  .employee-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .employee-avatar {
+    margin: 0 auto;
+  }
+
+  .employee-title h3 {
+    font-size: 1.25rem;
+  }
+
+  .detail-actions {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}

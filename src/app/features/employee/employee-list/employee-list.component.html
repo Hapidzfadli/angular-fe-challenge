@@ -1,0 +1,206 @@
+<div class="employee-list">
+  <div class="page-header">
+    <h2>Employee List</h2>
+    <button class="btn btn-primary" (click)="addEmployee()">
+      + Add Employee
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <!-- Search Section -->
+      <div class="search-section">
+        <div class="search-row">
+          <div class="search-group">
+            <select class="form-select"
+                    [(ngModel)]="state.searchParams.searchField1"
+                    (change)="onSearchChange()">
+              <option *ngFor="let field of searchFields" [value]="field.value">
+                {{ field.label }}
+              </option>
+            </select>
+            <input type="text"
+                   class="form-control"
+                   placeholder="Search..."
+                   [(ngModel)]="state.searchParams.searchTerm1"
+                   (input)="onSearchChange()">
+          </div>
+
+          <span class="search-operator">AND</span>
+
+          <div class="search-group">
+            <select class="form-select"
+                    [(ngModel)]="state.searchParams.searchField2"
+                    (change)="onSearchChange()">
+              <option *ngFor="let field of searchFields" [value]="field.value">
+                {{ field.label }}
+              </option>
+            </select>
+            <input type="text"
+                   class="form-control"
+                   placeholder="Search..."
+                   [(ngModel)]="state.searchParams.searchTerm2"
+                   (input)="onSearchChange()">
+          </div>
+
+          <button class="btn btn-outline-secondary" (click)="clearSearch()">
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div class="text-center py-5" *ngIf="isLoading">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Table View (Desktop) -->
+      <div class="employee-table-container" *ngIf="!isLoading">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th class="sortable"
+                    [class.asc]="getSortDirection('username') === 'asc'"
+                    [class.desc]="getSortDirection('username') === 'desc'"
+                    (click)="onSort('username')">Username</th>
+                <th class="sortable"
+                    [class.asc]="getSortDirection('firstName') === 'asc'"
+                    [class.desc]="getSortDirection('firstName') === 'desc'"
+                    (click)="onSort('firstName')">First Name</th>
+                <th class="sortable"
+                    [class.asc]="getSortDirection('lastName') === 'asc'"
+                    [class.desc]="getSortDirection('lastName') === 'desc'"
+                    (click)="onSort('lastName')">Last Name</th>
+                <th class="sortable"
+                    [class.asc]="getSortDirection('email') === 'asc'"
+                    [class.desc]="getSortDirection('email') === 'desc'"
+                    (click)="onSort('email')">Email</th>
+                <th class="sortable"
+                    [class.asc]="getSortDirection('birthDate') === 'asc'"
+                    [class.desc]="getSortDirection('birthDate') === 'desc'"
+                    (click)="onSort('birthDate')">Birth Date</th>
+                <th class="sortable"
+                    [class.asc]="getSortDirection('basicSalary') === 'asc'"
+                    [class.desc]="getSortDirection('basicSalary') === 'desc'"
+                    (click)="onSort('basicSalary')">Salary</th>
+                <th class="sortable"
+                    [class.asc]="getSortDirection('status') === 'asc'"
+                    [class.desc]="getSortDirection('status') === 'desc'"
+                    (click)="onSort('status')">Status</th>
+                <th class="sortable"
+                    [class.asc]="getSortDirection('group') === 'asc'"
+                    [class.desc]="getSortDirection('group') === 'desc'"
+                    (click)="onSort('group')">Group</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of displayedEmployees" (click)="viewEmployee(employee)" class="cursor-pointer">
+                <td>{{ employee.username }}</td>
+                <td>{{ employee.firstName }}</td>
+                <td>{{ employee.lastName }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.birthDate | dateFormat:'short' }}</td>
+                <td>{{ employee.basicSalary | rupiah }}</td>
+                <td>
+                  <span class="badge status-badge"
+                        [ngClass]="{
+                          'active': employee.status === 'Active',
+                          'inactive': employee.status === 'Inactive',
+                          'pending': employee.status === 'Pending'
+                        }">
+                    {{ employee.status }}
+                  </span>
+                </td>
+                <td>{{ employee.group }}</td>
+                <td class="actions" (click)="$event.stopPropagation()">
+                  <button class="btn btn-warning btn-sm me-1" (click)="editEmployee(employee)">
+                    Edit
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="confirmDelete(employee)">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="displayedEmployees.length === 0">
+                <td colspan="9" class="text-center py-4">
+                  <div class="empty-state">
+                    <div class="empty-state-title">No employees found</div>
+                    <div class="empty-state-description">Try adjusting your search criteria</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Card View (Mobile) -->
+      <div class="employee-cards-container" *ngIf="!isLoading">
+        <div class="employee-card" *ngFor="let employee of displayedEmployees" (click)="viewEmployee(employee)">
+          <div class="card-header">
+            <div class="employee-name">{{ employee.firstName }} {{ employee.lastName }}</div>
+            <span class="badge status-badge"
+                  [ngClass]="{
+                    'active': employee.status === 'Active',
+                    'inactive': employee.status === 'Inactive',
+                    'pending': employee.status === 'Pending'
+                  }">
+              {{ employee.status }}
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="info-row">
+              <span class="label">Username:</span>
+              <span class="value">{{ employee.username }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Email:</span>
+              <span class="value">{{ employee.email }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Salary:</span>
+              <span class="value">{{ employee.basicSalary | rupiah }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Group:</span>
+              <span class="value">{{ employee.group }}</span>
+            </div>
+          </div>
+          <div class="card-actions" (click)="$event.stopPropagation()">
+            <button class="btn btn-warning btn-sm" (click)="editEmployee(employee)">Edit</button>
+            <button class="btn btn-danger btn-sm" (click)="confirmDelete(employee)">Delete</button>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="displayedEmployees.length === 0">
+          <div class="empty-state-title">No employees found</div>
+          <div class="empty-state-description">Try adjusting your search criteria</div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <app-pagination
+        [currentPage]="state.pagination.currentPage"
+        [itemsPerPage]="state.pagination.itemsPerPage"
+        [totalItems]="state.pagination.totalItems"
+        (pageChange)="onPageChange($event)"
+        (itemsPerPageChange)="onItemsPerPageChange($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Dialog -->
+<app-confirm-dialog
+  [isOpen]="showDeleteDialog"
+  title="Delete Employee"
+  [message]="'Are you sure you want to delete ' + (employeeToDelete?.firstName || '') + ' ' + (employeeToDelete?.lastName || '') + '?'"
+  confirmText="Delete"
+  confirmClass="btn-danger"
+  (confirmed)="deleteEmployee()"
+  (cancelled)="cancelDelete()">
+</app-confirm-dialog>

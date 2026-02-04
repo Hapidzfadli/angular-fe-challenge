@@ -1,0 +1,72 @@
+<div class="employee-detail">
+  <div class="page-header">
+    <h2>Employee Detail</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="text-center py-5" *ngIf="isLoading">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div class="detail-content" *ngIf="!isLoading && employee">
+        <div class="employee-header">
+          <div class="employee-avatar">
+            {{ employee.firstName.charAt(0) }}{{ employee.lastName.charAt(0) }}
+          </div>
+          <div class="employee-title">
+            <h3>{{ employee.firstName }} {{ employee.lastName }}</h3>
+            <span class="badge status-badge" [ngClass]="getStatusClass()">
+              {{ employee.status }}
+            </span>
+          </div>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-label">Username</div>
+            <div class="detail-value">{{ employee.username }}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Email</div>
+            <div class="detail-value">{{ employee.email }}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Birth Date</div>
+            <div class="detail-value">{{ employee.birthDate | dateFormat }}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Basic Salary</div>
+            <div class="detail-value salary">{{ employee.basicSalary | rupiah }}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Group</div>
+            <div class="detail-value">{{ employee.group }}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Status</div>
+            <div class="detail-value">{{ employee.status }}</div>
+          </div>
+
+          <div class="detail-item full-width">
+            <div class="detail-label">Description</div>
+            <div class="detail-value">{{ employee.description }}</div>
+          </div>
+        </div>
+
+        <div class="detail-actions">
+          <button class="btn btn-primary" (click)="goBack()">
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

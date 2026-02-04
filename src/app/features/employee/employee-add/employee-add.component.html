@@ -1,0 +1,149 @@
+<div class="employee-add">
+  <div class="page-header">
+    <h2>Add New Employee</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <!-- Username -->
+          <div class="form-group">
+            <label class="form-label required-field">Username</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="username"
+                   [class.is-invalid]="isFieldInvalid('username')"
+                   placeholder="Enter username">
+            <div class="invalid-feedback" *ngIf="f['username'].errors?.['required']">
+              Username is required
+            </div>
+            <div class="invalid-feedback" *ngIf="f['username'].errors?.['minlength']">
+              Username must be at least 3 characters
+            </div>
+          </div>
+
+          <!-- First Name -->
+          <div class="form-group">
+            <label class="form-label required-field">First Name</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="firstName"
+                   [class.is-invalid]="isFieldInvalid('firstName')"
+                   placeholder="Enter first name">
+            <div class="invalid-feedback">First name is required</div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-group">
+            <label class="form-label required-field">Last Name</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="lastName"
+                   [class.is-invalid]="isFieldInvalid('lastName')"
+                   placeholder="Enter last name">
+            <div class="invalid-feedback">Last name is required</div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label required-field">Email</label>
+            <input type="email"
+                   class="form-control"
+                   formControlName="email"
+                   [class.is-invalid]="isFieldInvalid('email')"
+                   placeholder="Enter email">
+            <div class="invalid-feedback" *ngIf="f['email'].errors?.['required']">
+              Email is required
+            </div>
+            <div class="invalid-feedback" *ngIf="f['email'].errors?.['email']">
+              Please enter a valid email address
+            </div>
+          </div>
+
+          <!-- Birth Date -->
+          <div class="form-group">
+            <label class="form-label required-field">Birth Date</label>
+            <input type="date"
+                   class="form-control"
+                   formControlName="birthDate"
+                   [class.is-invalid]="isFieldInvalid('birthDate')"
+                   [max]="maxDate">
+            <div class="invalid-feedback" *ngIf="f['birthDate'].errors?.['required']">
+              Birth date is required
+            </div>
+            <div class="invalid-feedback" *ngIf="f['birthDate'].errors?.['futureDate']">
+              Birth date cannot be in the future
+            </div>
+          </div>
+
+          <!-- Basic Salary -->
+          <div class="form-group">
+            <label class="form-label required-field">Basic Salary (IDR)</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="basicSalary"
+                   [class.is-invalid]="isFieldInvalid('basicSalary')"
+                   placeholder="Enter salary"
+                   appNumericOnly>
+            <div class="invalid-feedback" *ngIf="f['basicSalary'].errors?.['required']">
+              Basic salary is required
+            </div>
+            <div class="invalid-feedback" *ngIf="f['basicSalary'].errors?.['min']">
+              Salary must be greater than 0
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="form-group">
+            <label class="form-label required-field">Status</label>
+            <select class="form-select"
+                    formControlName="status"
+                    [class.is-invalid]="isFieldInvalid('status')">
+              <option value="">Select status</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+              <option value="Pending">Pending</option>
+            </select>
+            <div class="invalid-feedback">Status is required</div>
+          </div>
+
+          <!-- Group -->
+          <div class="form-group">
+            <label class="form-label required-field">Group</label>
+            <app-searchable-dropdown
+              [options]="groups"
+              placeholder="Select group"
+              formControlName="group"
+              [class.is-invalid]="isFieldInvalid('group')">
+            </app-searchable-dropdown>
+            <div class="invalid-feedback" [class.d-block]="isFieldInvalid('group')">
+              Group is required
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group full-width">
+            <label class="form-label required-field">Description</label>
+            <textarea class="form-control"
+                      formControlName="description"
+                      [class.is-invalid]="isFieldInvalid('description')"
+                      rows="3"
+                      placeholder="Enter description"></textarea>
+            <div class="invalid-feedback">Description is required</div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ isLoading ? 'Saving...' : 'Save' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

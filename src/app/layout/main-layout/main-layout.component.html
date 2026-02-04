@@ -1,0 +1,13 @@
+<div class="app-layout">
+  <app-header (toggleSidebar)="toggleSidebar()"></app-header>
+  <app-sidebar [isOpen]="sidebarOpen"></app-sidebar>
+
+  <div class="sidebar-overlay"
+       [class.active]="sidebarOpen"
+       (click)="closeSidebarOnMobile()">
+  </div>
+
+  <main class="main-content" [class.sidebar-open]="sidebarOpen">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,0 +1,119 @@
+.notification-container {
+  position: fixed;
+  top: calc(var(--header-height) + 1.5rem);
+  right: 1.5rem;
+  z-index: 1100;
+  max-width: 420px;
+  width: 100%;
+
+  @media (max-width: 576px) {
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+    width: calc(100% - 2rem);
+  }
+}
+
+.notification {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.125rem 1.25rem;
+  margin-bottom: 0.75rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-left: 4px solid;
+  backdrop-filter: blur(10px);
+
+  &.success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.08) 100%);
+    border-left-color: var(--success-color);
+    color: #065f46;
+
+    .notification-icon {
+      color: var(--success-color);
+    }
+  }
+
+  &.warning {
+    background: linear-gradient(135deg, rgba(255, 180, 0, 0.2) 0%, rgba(255, 180, 0, 0.1) 100%);
+    border-left-color: var(--mandiri-gold);
+    color: #92400e;
+
+    .notification-icon {
+      color: var(--mandiri-gold);
+    }
+  }
+
+  &.error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.08) 100%);
+    border-left-color: var(--danger-color);
+    color: #991b1b;
+
+    .notification-icon {
+      color: var(--danger-color);
+    }
+  }
+
+  &.info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.08) 100%);
+    border-left-color: var(--info-color);
+    color: #1e40af;
+
+    .notification-icon {
+      color: var(--info-color);
+    }
+  }
+}
+
+.notification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.notification-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.notification-message {
+  flex: 1;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.notification-close {
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
+  padding: 0.25rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

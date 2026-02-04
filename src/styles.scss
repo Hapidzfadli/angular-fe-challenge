@@ -1,0 +1,510 @@
+@import 'bootstrap/scss/bootstrap';
+
+:root {
+  // Mandiri Brand Colors
+  --mandiri-blue: #003c78;
+  --mandiri-blue-light: #0066cc;
+  --mandiri-blue-lighter: #e8f4fc;
+  --mandiri-gold: #ffb400;
+  --mandiri-gold-light: #fff4d6;
+
+  // Primary colors
+  --primary-color: #003c78;
+  --primary-light: #e8f4fc;
+  --secondary-color: #6c757d;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --info-color: #3b82f6;
+
+  // Background colors
+  --bg-light: #f8fafc;
+  --bg-white: #ffffff;
+  --bg-sidebar: linear-gradient(180deg, #003c78 0%, #001d3d 100%);
+
+  // Text colors
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-light: #f8fafc;
+
+  // Border colors
+  --border-color: #e2e8f0;
+  --border-radius: 12px;
+  --border-radius-lg: 16px;
+
+  // Shadows
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  // Spacing
+  --sidebar-width: 260px;
+  --header-height: 70px;
+  --transition-speed: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  background-color: var(--bg-light);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+
+  &:hover {
+    background: #94a3b8;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// Form Styles
+.form-control, .form-select {
+  border-radius: 10px;
+  border: 1.5px solid var(--border-color);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-color: var(--mandiri-blue);
+    box-shadow: 0 0 0 3px rgba(0, 60, 120, 0.1);
+  }
+
+  &::placeholder {
+    color: #94a3b8;
+  }
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.required-field::after {
+  content: ' *';
+  color: var(--danger-color);
+}
+
+.invalid-feedback {
+  font-size: 0.8rem;
+  color: var(--danger-color);
+}
+
+// Button Styles
+.btn {
+  font-weight: 600;
+  padding: 0.625rem 1.25rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--mandiri-blue) 0%, var(--mandiri-blue-light) 100%);
+  border: none;
+  color: white;
+
+  &:hover {
+    background: linear-gradient(135deg, var(--mandiri-blue-light) 0%, var(--mandiri-blue) 100%);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  border: none;
+  color: #1e293b;
+
+  &:hover {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #1e293b;
+  }
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+  border: none;
+
+  &:hover {
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+  }
+}
+
+.btn-outline-secondary {
+  border: 1.5px solid var(--border-color);
+  color: var(--text-secondary);
+
+  &:hover {
+    background-color: var(--bg-light);
+    border-color: var(--text-secondary);
+  }
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+  border-radius: 8px;
+}
+
+// Table Styles
+.table {
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  th {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    background-color: var(--bg-light);
+    border-bottom: 2px solid var(--border-color);
+    padding: 1rem 0.75rem;
+    white-space: nowrap;
+  }
+
+  td {
+    vertical-align: middle;
+    padding: 0.875rem 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+  }
+
+  tbody tr {
+    transition: all 0.15s ease;
+
+    &:hover {
+      background-color: var(--mandiri-blue-lighter);
+    }
+  }
+}
+
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 1.5rem !important;
+
+  &:hover {
+    color: var(--mandiri-blue);
+  }
+
+  &::after {
+    content: '\2195';
+    position: absolute;
+    right: 0.5rem;
+    opacity: 0.3;
+    font-size: 0.75rem;
+  }
+
+  &.asc::after {
+    content: '\2191';
+    opacity: 1;
+    color: var(--mandiri-blue);
+  }
+
+  &.desc::after {
+    content: '\2193';
+    opacity: 1;
+    color: var(--mandiri-blue);
+  }
+}
+
+// Card Styles
+.card {
+  background: var(--bg-white);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow);
+  transition: all var(--transition-speed) ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.card-header {
+  background: transparent;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  padding: 1.25rem 1.5rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+// Notification Styles
+.notification-container {
+  position: fixed;
+  top: calc(var(--header-height) + 1rem);
+  right: 1rem;
+  z-index: 1100;
+  max-width: 400px;
+}
+
+.notification {
+  padding: 1rem 1.25rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 0.75rem;
+  box-shadow: var(--shadow-lg);
+  animation: slideIn 0.3s ease-out;
+  border-left: 4px solid;
+  backdrop-filter: blur(10px);
+
+  &.success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+    border-left-color: var(--success-color);
+    color: #065f46;
+  }
+
+  &.warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border-left-color: var(--mandiri-gold);
+    color: #92400e;
+  }
+
+  &.error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+    border-left-color: var(--danger-color);
+    color: #991b1b;
+  }
+
+  &.info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border-left-color: var(--info-color);
+    color: #1e40af;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// Pagination Styles
+.pagination {
+  margin-bottom: 0;
+  gap: 0.25rem;
+
+  .page-link {
+    color: var(--text-primary);
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px !important;
+    padding: 0.5rem 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: var(--mandiri-blue-lighter);
+      border-color: var(--mandiri-blue);
+      color: var(--mandiri-blue);
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .page-item {
+    &.active .page-link {
+      background: var(--mandiri-blue);
+      border-color: var(--mandiri-blue);
+      color: white;
+    }
+
+    &.disabled .page-link {
+      color: var(--text-secondary);
+      background: var(--bg-light);
+    }
+  }
+}
+
+// Modal Styles
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  border: none;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.25rem 1.5rem;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
+}
+
+// Responsive Utilities - Table vs Cards
+.employee-table-container {
+  display: block;
+}
+
+.employee-cards-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .employee-table-container {
+    display: none !important;
+  }
+
+  .employee-cards-container {
+    display: grid !important;
+  }
+}
+
+// Loading Spinner
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner-border {
+  color: var(--mandiri-blue) !important;
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--text-secondary);
+
+  .empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+
+  .empty-state-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .empty-state-description {
+    font-size: 0.9rem;
+  }
+}
+
+// Badge Styles
+.badge {
+  font-weight: 600;
+  padding: 0.375em 0.75em;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge {
+  &.active {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    color: white;
+  }
+
+  &.inactive {
+    background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
+    color: white;
+  }
+
+  &.pending {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    color: #1e293b;
+  }
+}
+
+// Page Header
+.page-header {
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--mandiri-gold) 0%, var(--mandiri-blue) 100%);
+      border-radius: 2px;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+// Search Section
+.search-section {
+  background: var(--bg-light);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+// Accent line
+.accent-line {
+  height: 4px;
+  background: linear-gradient(90deg, var(--mandiri-gold) 0%, var(--mandiri-blue) 100%);
+  border-radius: 2px;
+}
